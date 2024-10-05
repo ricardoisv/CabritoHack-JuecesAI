@@ -1,0 +1,5 @@
+camel-ai[all]==0.2.1
+fastapi 
+uvicorn
+python-dotenv
+nest_asyncio
