@@ -50,7 +50,7 @@ def make_judge(
 
     model = ModelFactory.create(
         model_platform=ModelPlatformType.OPENAI,
-        model_type=ModelType.GPT_4O,
+        model_type=ModelType.GPT_4O_MINI,
         model_config_dict=ChatGPTConfig().as_dict(),
     )
 
@@ -69,7 +69,7 @@ search_tools = [
 
 researcher_model = ModelFactory.create(
     model_platform=ModelPlatformType.OPENAI,
-    model_type=ModelType.GPT_4O,
+    model_type=ModelType.GPT_4O_MINI,
     model_config_dict=ChatGPTConfig().as_dict(),
 )
 
@@ -84,9 +84,9 @@ researcher_agent = ChatAgent(
     tools=search_tools,
 )
 
-# 1. Venture Capitalist - Mariano
+# 1. Venture Capitalist - El-VC
 vc_persona = """
-You are Mariano, a venture capitalist who is obsessed with how projects can 
+You are El-VC, a venture capitalist who is obsessed with how projects can 
 be scaled into "unicorn" companies. You pepper your speech with 
 buzzwords like "disruptive," "synergistic," and "market penetration."
 You are primarily concerned with the business potential and scalability of projects.
@@ -137,9 +137,9 @@ programmer_criteria = textwrap.dedent(
 
 programmer_agent = make_judge(programmer_persona, programmer_example_feedback, programmer_criteria)
 
-# 3. Business Writer - Paola
+# 3. Business Writer - Startupera
 writer_persona = """
-You are Paola, an accomplished business writer with a knack for identifying compelling 
+You are Startupera, an accomplished business writer with a knack for identifying compelling 
 narratives in startup projects. You focus on how well the project is communicated, its 
 potential impact on the market, and how it addresses real-world problems. Your feedback 
 often includes suggestions for refining the project's story and pitch.
@@ -165,9 +165,9 @@ writer_criteria = textwrap.dedent(
 
 writer_agent = make_judge(writer_persona, writer_example_feedback, writer_criteria)
 
-# 4. Growth Expert - Jeremi
+# 4. Growth Expert - El GrowthGuy
 growth_persona = """
-You are Jeremi, a growth hacking expert with a track record of scaling startups. 
+You are El GrowthGuy, a growth hacking expert with a track record of scaling startups. 
 You focus on user acquisition strategies, viral potential, and long-term growth 
 opportunities. Your feedback often includes suggestions for growth strategies and 
 potential pivots to maximize market penetration.
@@ -197,19 +197,19 @@ growth_agent = make_judge(growth_persona, growth_example_feedback, growth_criter
 workforce = Workforce('Hackathon Judges')
 
 workforce.add_single_agent_worker(
-    'Mariano (Judge), a venture capitalist focused on unicorn potential',
+    'El-VC (Judge), a venture capitalist focused on unicorn potential',
     worker=vc_agent,
 ).add_single_agent_worker(
     'TopFounder (Judge), an experienced programmer and tech entrepreneur',
     worker=programmer_agent,
 ).add_single_agent_worker(
-    'Paola (Judge), an accomplished business writer focused on market narratives',
+    'Startupera (Judge), an accomplished business writer focused on market narratives',
     worker=writer_agent,
 ).add_single_agent_worker(
-    'Jeremi (Judge), a growth hacking expert specializing in scaling startups',
+    'El GrowthGuy (Judge), a growth hacking expert specializing in scaling startups',
     worker=growth_agent,
 ).add_single_agent_worker(
-    'Researcher Rachel (Helper), a researcher who does online searches to'
+    'Researcher Practicante (Helper), a researcher who does online searches to'
     'find the latest innovations and trends on AI and Open Sourced projects.',
     worker=researcher_agent,
 )
@@ -256,48 +256,3 @@ def create_task(project_description: str) -> Task:
         additional_info=project_description,
         id="0",
     )
-
-# if __name__ == "__main__":
-#     # For testing purposes
-#     test_project = """
-#     Project name: AI-Powered Sustainable Agriculture System
-#     Description: Our project aims to revolutionize agriculture by integrating AI and IoT technologies. 
-#     We've developed a system that uses machine learning algorithms to analyze soil conditions, weather patterns, 
-#     and crop health in real-time. This allows for precise irrigation, fertilization, and pest control, 
-#     significantly reducing water usage and chemical inputs while maximizing crop yield.
-#     """
-#     result = evaluate_project(test_project)
-#     print(result)
-
-# def test_evaluation():
-#     test_project = """
-#     Project name: EcoSync - AI-Powered Urban Sustainability Platform
-    
-#     Description: EcoSync is an innovative platform that leverages AI and IoT to optimize urban resource management. 
-#     Our system integrates data from various city systems including energy grids, water management, waste disposal, 
-#     and public transportation. Using advanced machine learning algorithms, EcoSync provides real-time insights and 
-#     automated adjustments to maximize efficiency and minimize environmental impact.
-    
-#     Key Features:
-#     1. Smart Grid Optimization: AI-driven balancing of energy supply and demand, integrating renewable sources.
-#     2. Intelligent Water Management: Predictive maintenance for water infrastructure and usage optimization.
-#     3. Adaptive Traffic Control: Real-time traffic flow optimization to reduce congestion and emissions.
-#     4. Waste Reduction System: IoT-enabled waste bins and route optimization for collection services.
-#     5. Citizen Engagement App: Gamified platform for residents to participate in and benefit from sustainability efforts.
-    
-#     Technology Stack: Python, TensorFlow, IoT sensors, Cloud computing (AWS), Blockchain for data integrity.
-    
-#     Business Model: SaaS model for city governments with tiered pricing based on population and feature set. 
-#     Additional revenue streams from data insights sold to urban planners and researchers.
-    
-#     Market Potential: Targeting mid-size to large cities globally, with an initial focus on environmentally progressive markets.
-#     """
-    
-#     print("Starting project evaluation...")
-#     result = evaluate_project(test_project)
-#     print("\nEvaluation Result:")
-#     print(result)
-#     print("\nTest completed.")
-
-# if __name__ == "__main__":
-#     test_evaluation()
